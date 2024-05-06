@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset=utf-8 />
+
+	<title>Shipwrecks and Climate Change</title>
+	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.2/css/all.css">
+	<link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background: "whitesmoke";
+			font-family: 'Titillium Web', sans-serif;
+			color: #3d3d3d;
+		}
+
+		h1 {
+			position: absolute;
+			margin-top: 0;
+			top: 10px;
+			left: 45px;
+			font-size: 2em;
+			font-family: 'Titillium Web', sans-serif;
+			letter-spacing: .04em;
+			padding: 10px 15px;
+			background: rgba(256, 256, 256);
+			border: 1px solid grey;
+			border-radius: 3px;
+			z-index: 800;
+		}
+
+		h2 {
+			font-family: 'Titillium Web', sans-serif;
+			letter-spacing: .04em;
+		}
+
+		#map {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			width: 100%;
+		}
+
+		section {
+			position: absolute;
+			bottom: 0;
+			left: 10px;
+			width: 280px;
+			margin: 20px auto;
+			padding: 0 15px;
+			background: rgba(256, 256, 256);
+			border: 1px solid grey;
+			border-radius: 3px;
+			z-index: 800;
+		}
+
+		p {
+			font-size: .9em;
+			line-height: 1.5em;
+		}
+
+		a {
+			color: #005daa;
+			text-decoration: none;
+		}
+
+		a:hover {
+			text-decoration: underline;
+		}
+
+	</style>
+</head>
+
+<body>
+
+	<div id='map'></div>
+
+	<section>
+		<h3>Western Australia Shipwreck Risk Assessment
+	    </h3>
+
+		<p>The coast of Western Australia is home to over 1,400 shipwrecks, which are at threat of major deterioration due to climate change. Factors such as sea level rise, high temperatures, salinity, and pH have lead to an increased risk of shipwreck degredation.   </p>
+
+		<p>To preserve Australia's coastal and underwater heritage, this map aims to raise awareness of this issue. Go <a href="https://cosmosmagazine.com/greenlight-project/good-and-bad-news-on-climate-and-shipwrecks/">here</a> for more information.
+		</p>
+
+        <p>Map authored by Emma Edwards</p>
+
+		<p>Shipwreck Databases @ Western Australian Museum | Marine Explorer @ Climate Change in Australia</p>
+
+
+	</section>
+
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/1.3.4/chroma.min.js"></script>
+	<script>
+
+		var options = {
+			center: [-25.042261, 117.793221],
+			zoom: 6
+		}
+		var map = L.map('map', options);
+
+		var tiles = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+			attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+			subdomains: 'abcd',
+			maxZoom: 19
+		}).addTo(map);
+
+	//wreck = L.geoJson.ajax("assets/wrecks.geojson")
+	//wreck.addTo(map);
+
+var markers = [];
+var Calliance = L.marker([-15.503394, 124.617717], {title: "<p><b>VERY HIGH RISK</b></p><p>Name: Calliance</p> <p>Date Lost: 01/05/1865</p> <p>Location Found: Camden Harbour, Bonaparte Archipelago</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/calliance>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Calliance);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Correio = L.marker([-22.863433, 113.750667], {title: "<p><b>HIGH RISK</b></p><p>Name: Correio de Azia</p> <p>Date Lost: 11/25/1816</p> <p>Location Found: Point Cloates</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/correio-da-azia>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Correio);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Crown = L.marker([-20.617493, 117.73213], {title: "<p><b>VERY HIGH RISK</b></p><p>Name: Crown of England</p> <p>Date Lost: 03/21/1912</p> <p>Location Found: Wreck Point, Depuch Island</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/crown-of-england>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Crown);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Emma = L.marker([-23.08255, 113.7335], {title: "<p><b>HIGH RISK</b></p><p>Name: Emma</p> <p>Date Lost: 03/1867</p> <p>Location Found: Coral Bay</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/emma>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Emma);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Fairy = L.marker([-21.81715, 114.1891167], {title: "<p>Name: Fairy Queen</p> <p>Date Lost: 10/08/1875</p> <p>Location Found: Exmouth N W Cape</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/fairy-queen>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Fairy);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Karrakatta = L.marker([-16.35666667, 123.035], {title: "<p><b>MEDIUM RISK</b></p><p>Name: Karrakatta</p> <p>Date Lost: 03/26/1901</p> <p>Location Found: Swan Point, Broome Side Swan IS</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/karrakattak>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Karrakatta);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Lively = L.marker([-17.08968333, 119.5915], {title: "<p><b>VERY HIGH RISK</b></p><p>Name: Lively</p> <p>Date Lost: c. 07/1806</p> <p>Location Found: Mermaid Reed, Rowley Shoals</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/lively>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Lively);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Manfred = L.marker([-16.852652, 122.127839], {title: "<p><b>MEDIUM RISK</b></p><p>Name: Manfred</p> <p>Date Lost: 01/24/1879</p> <p>Location Found: Lacepedes</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/manfred>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Manfred);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Rapid = L.marker([-22.739438, 113.692643], {title: "<p><b>HIGH RISK</b></p><p>Name: Rapid</p> <p>Date Lost: 01/07/1811</p> <p>Location Found: Ningaloo Reef</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/rapid>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Rapid);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Fin = L.marker([-22.6476, 113.6282667], {title: "<p><b>HIGH RISK</b></p><p>Name: SS Fin</p> <p>Date Lost: Unknown</p> <p>Location Found: Point Cloates, Fraser Island</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/ss-fin>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Fin);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Mildura = L.marker([-21.784092, 114.167735], {title: "<p><b>HIGH RISK</b></p><p>Name: SS Mildura</p> <p>Date Lost: Unknown</p> <p>Location Found: North-West Cape</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/ss-mildura>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Mildura);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Perth = L.marker([-22.69246667, 113.6422667], {title: "<p><b>HIGH RISK</b></p><p>Name: SS Perth</p> <p>Date Lost: 09/17/1887</p> <p>Location Found: Point Cloates</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/ss-perth>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Perth);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Sunbeam= L.marker([-14.35, 126.025], {title: "<p><b>HIGH RISK</b></p><p>Name: SS Sunbeam</p> <p>Date Lost: 03/28/1892</p> <p>Location Found: Off Middle Osbourne Island</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/ss-sunbeam>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Sunbeam);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Zvir= L.marker([-22.60916667, 113.626], {title: "<p><b>VERY HIGH RISK</b></p><p>Name: SS Zvir</p> <p>Date Lost: 11/27/1902</p> <p>Location Found: Point Cloates</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/ss-zvir>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Zvir);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Stefano= L.marker([-22.82688333, 113.7211833], {title: "<p><b>HIGH RISK</b></p><p>Name: Stefano</p> <p>Date Lost: 10/27/1875</p> <p>Location Found: Point Cloates</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/stefano>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Stefano);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Trial= L.marker([-20.28598333, 115.3752333], {title: "<p><b>HIGH RISK</b></p><p>Name: Trial</p> <p>Date Lost: 05/24/1622</p> <p>Location Found: Trial Rocks</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/trial>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Trial);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Yarra= L.marker([-14.040493, 121.770013], {title: "<p><b>HIGH RISK</b></p><p>Name: Yarra</p> <p>Date Lost: 01/15/1884</p> <p>Location Found: Scott Reef</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/yarra>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Yarra);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var African= L.marker([-28.725579, 114.619229], {title: "<p><b>VERY HIGH RISK</b></p><p>Name: African</p> <p>Date Lost: 01/04/1863</p> <p>Location Found: Geraldton, Champion Bay, Sunset Beach</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/african>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(African);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Batavia= L.marker([-28.491644, 113.791928], {title: "<p><b>HIGH RISK</b></p><p>Name: Batavia</p> <p>Date Lost: 06/04/1629</p> <p>Location Found: Morning Reef, Houtman Abrolhos</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/batavia>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Batavia);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Ben= L.marker([-28.93687, 113.969225], {title: "<p><b>MEDIUM RISK</b></p><p>Name: Ben Ledi</p> <p>Date Lost: 12/16/1879</p> <p>Location Found: Abrolhos Islands, Pelsaert Islands</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/ben-ledi>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Ben);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Cervantes= L.marker([-30.51336667, 115.05], {title: "<p><b>MEDIUM RISK</b></p><p>Name: Cervantes</p> <p>Date Lost: 06/20/1844</p> <p>Location Found: Jurien Bay</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/cervantes>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Cervantes);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Europa= L.marker([-30.40271667, 114.9859], {title: "<p><b>MEDIUM RISK</b></p><p>Name: Europa</p> <p>Date Lost: 10/01/1897</p> <p>Location Found: Jurien Bay/Sand Reedy</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/europa>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Europa);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Gudrun= L.marker([-25.425, 113.5251667], {title: "<p><b>MEDIUM RISK</b></p><p>Name: Gudrun</p> <p>Date Lost: 10/23/1901</p> <p>Location Found: Shark Bay</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/gudrun>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Gudrun);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Hadda= L.marker([-28.472267, 113.792417], {title: "<p><b>HIGH RISK</b></p><p>Name: Hadda</p> <p>Date Lost: 04/30/1877</p> <p>Location Found: Off Beacon Island</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/hadda>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Hadda);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Marten= L.marker([-28.93687, 113.969225], {title: "<p><b>HIGH RISK</b></p><p>Name: Marten</p> <p>Date Lost: 03/04/1878</p> <p>Location Found: Pelsaert Island</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/marten>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Marten);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Mayhill= L.marker([-28.765, 114.57], {title: "<p><b>HIGH RISK</b></p><p>Name: Mayhill</p> <p>Date Lost: 08/10/1895</p> <p>Location Found: Point Moore</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/mayhill>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Mayhill);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Cambewarra= L.marker([-30.211, 114.8221667], {title: "<p><b>HIGH RISK</b></p><p>Name: SS Cambewarra</p> <p>Date Lost: Unknown</p> <p>Location Found: Near Fisherman's Island</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/ss-cambewarra>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Cambewarra);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Lubra= L.marker([-30.30193333, 114.9981833], {title: "<p><b>MEDIUM HIGH RISK</b></p><p>Name: SS Lubra</p> <p>Date Lost: 01/08/1898</p> <p>Location Found: Jurien Bay</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/ss-lubra>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Lubra);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+var Windsor= L.marker([-28.989513, 113.930532], {title: "<p><b>MEDIUM RISK</b></p><p>Name: SS Windsor</p> <p>Date Lost: 1501</p> <p>Location Found: Abrolhos, West of Pelsaert Island</p> <p> <a href= https://museum.wa.gov.au/maritime-archaeology-db/wrecks/ss-windsor>More Information</a>", riseOnHover: true, interactive: true}).addTo(map);
+markers.push(Windsor);
+
+for (var i = 0; i < markers.length; i++) {
+    var currentMarker = markers[i];
+    currentMarker.bindPopup(currentMarker.options.title);
+}
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
